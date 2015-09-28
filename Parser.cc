@@ -8,7 +8,16 @@ namespace zack
 {
 
 Parser::Parser(char* buf, int len):
-    buf_(buf), len_(len)
+    buf_(buf), len_(len),
+    update_time_field_exist_(false),
+    best_price_field_exist_(false),
+    static_field_exist_(false),
+    last_match_field_exist_(false),
+    base_field_exist_(false),
+    ask23_field_exist_(false),
+    ask45_field_exist_(false),
+    bid23_field_exist_(false),
+    bid45_field_exist_(false)
 {
   ZACK_TRACE <<"Parser::Parser()";
 
@@ -84,53 +93,120 @@ void Parser::parseField()
     switch(field_header.FieldID)
     {
       case 0x2439:
-          memcpy( &update_time_field_, pz, field_header.Size );
+        update_time_field_exist_ = true;
+        memcpy( &update_time_field_, pz, field_header.Size );
 
         break;
         
       case 0x2434:
-          memcpy(&best_price_field_, pz, field_header.Size);
+        best_price_field_exist_ = true;
+        memcpy(&best_price_field_, pz, field_header.Size);
 
         break;
         
       case 0x2432:
-          memcpy(&static_field_, pz, field_header.Size);
+        static_field_exist_ = true;
+        memcpy(&static_field_, pz, field_header.Size);
 
         break;
         
       case 0x2433:
-          memcpy(&last_match_field_, pz, field_header.Size);
+        last_match_field_exist_ = true;
+        memcpy(&last_match_field_, pz, field_header.Size);
 
         break;
         
       case 0x2435:
-          memcpy(&bid23_field_, pz, field_header.Size);
+        bid23_field_exist_ = true;
+        memcpy(&bid23_field_, pz, field_header.Size);
 
         break;
         
       case 0x2436:
-          memcpy(&ask23_field_, pz, field_header.Size);
+        ask23_field_exist_ = true;
+        memcpy(&ask23_field_, pz, field_header.Size);
 
         break;
         
       case 0x2437:
-          memcpy(&bid45_field_, pz, field_header.Size);
+        bid45_field_exist_ = true;
+        memcpy(&bid45_field_, pz, field_header.Size);
 
         break;
         
       case 0x2438:
-          memcpy(&ask45_field_, pz, field_header.Size);
+        ask45_field_exist_ = true;
+        memcpy(&ask45_field_, pz, field_header.Size);
 
         break;
         
       case 0x2431:
-          memcpy(&base_field_, pz, field_header.Size);
+        base_field_exist_ = true;
+        memcpy(&base_field_, pz, field_header.Size);
         break;
     }
     pz +=  field_header.Size;
     
   }
   
+}
+
+std::string Parser::instru()
+{
+  if( update_time_field_exist_ )
+    return update_time_field_.InstrumentID;
+
+  return "";
+}
+
+std::string Parser::updateTime()
+{
+  if( update_time_field_exist_ )
+    return update_time_field_.UpdateTime;
+
+  return "";
+}
+
+int Parser::updateMillisec()
+{
+  if( update_time_field_exist_ )
+    return update_time_field_.UpdateMillisec;
+
+  return 0;
+}
+
+void Parser::output()
+{
+  ZACK_TRACE <<"Parser::output()";
+
+  ZACK_INFO <<header_;
+  
+  if( update_time_field_exist_ )
+    ZACK_INFO <<update_time_field_;
+
+  if( best_price_field_exist_ )
+    ZACK_INFO <<best_price_field_;
+
+  if( static_field_exist_ )
+    ZACK_INFO <<static_field_;
+
+  if( last_match_field_exist_ )
+    ZACK_INFO <<last_match_field_;
+
+  if( base_field_exist_ )
+    ZACK_INFO <<base_field_;
+
+  if( bid23_field_exist_ )
+    ZACK_INFO <<bid23_field_;
+
+  if( ask23_field_exist_ )
+    ZACK_INFO <<ask23_field_;
+
+  if( bid45_field_exist_ )
+    ZACK_INFO <<bid45_field_;
+
+  if( ask45_field_exist_ )
+    ZACK_INFO <<ask45_field_;
 }
 
 };

@@ -4,6 +4,8 @@ bin_PROGRAMS = zack
 zack_SOURCES = \
 	ZackConfig.cc \
 	Parser.cc \
+	MData.cc \
+	ZackServer.cc \
 	Main.cc
 
 zack_CPPFLAGS =  \
@@ -19,11 +21,14 @@ zack_LDADD = \
 zack_LDFLAGS = $(LIBADD_DL) -Wl,--no-as-needed -pthread
 
 # header files
-noinst_HEADERS = ZackConfig.hh FtdcDef.hh \
+noinst_HEADERS = ZackConfig.hh \
+	FtdcDef.hh \
 	Parser.hh \
-	ZackLog.hh
+	ZackServer.hh \
+	ZackLog.hh \
+	MData.hh
 
-EXTRA_DIST = env.sh.example
+EXTRA_DIST = env.sh.example zack.cfg.example log.cfg.example
 
 zackdir = $(bindir)
 zack_DATA = $(EXTRA_DIST)

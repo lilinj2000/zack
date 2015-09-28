@@ -17,8 +17,10 @@ ZackOptions::ZackOptions():
   config_options_.add_options()
       ("zack.udp_port", po::value<int>(&udp_port), 
        "udp port")
-      ("zack.instru", po::value<std::string>(&instru), 
+      ("zack.instrus_filter", po::value<std::string>(&instrus_filter), 
        "instrument")
+      ("zack.md_file", po::value<std::string>(&md_file), 
+       "md file")
 
       ("zack.log_cfg", po::value<std::string>(&log_cfg), 
        "log config file")

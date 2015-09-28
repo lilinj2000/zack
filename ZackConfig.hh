@@ -22,7 +22,9 @@ class ZackOptions : public soil::Options
 
   int udp_port;
   
-  std::string instru;
+  std::string instrus_filter;
+
+  std::string md_file;
   
   std::string log_cfg;
 

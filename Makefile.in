@@ -98,6 +98,7 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(zackdir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_zack_OBJECTS = zack-ZackConfig.$(OBJEXT) zack-Parser.$(OBJEXT) \
+	zack-MData.$(OBJEXT) zack-ZackServer.$(OBJEXT) \
 	zack-Main.$(OBJEXT)
 zack_OBJECTS = $(am_zack_OBJECTS)
 am__DEPENDENCIES_1 =
@@ -350,6 +351,8 @@ AUTOMAKE_OPTIONS = foreign
 zack_SOURCES = \
 	ZackConfig.cc \
 	Parser.cc \
+	MData.cc \
+	ZackServer.cc \
 	Main.cc
 
 zack_CPPFLAGS = \
@@ -363,11 +366,14 @@ zack_LDADD = \
 zack_LDFLAGS = $(LIBADD_DL) -Wl,--no-as-needed -pthread
 
 # header files
-noinst_HEADERS = ZackConfig.hh FtdcDef.hh \
+noinst_HEADERS = ZackConfig.hh \
+	FtdcDef.hh \
 	Parser.hh \
-	ZackLog.hh
+	ZackServer.hh \
+	ZackLog.hh \
+	MData.hh
 
-EXTRA_DIST = env.sh.example
+EXTRA_DIST = env.sh.example zack.cfg.example log.cfg.example
 zackdir = $(bindir)
 zack_DATA = $(EXTRA_DIST)
 all: all-am
@@ -468,9 +474,11 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/zack-MData.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/zack-Main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/zack-Parser.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/zack-ZackConfig.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/zack-ZackServer.Po@am__quote@
 
 .cc.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -520,6 +528,34 @@ zack-Parser.obj: Parser.cc
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='Parser.cc' object='zack-Parser.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(zack_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o zack-Parser.obj `if test -f 'Parser.cc'; then $(CYGPATH_W) 'Parser.cc'; else $(CYGPATH_W) '$(srcdir)/Parser.cc'; fi`
+
+zack-MData.o: MData.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(zack_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT zack-MData.o -MD -MP -MF $(DEPDIR)/zack-MData.Tpo -c -o zack-MData.o `test -f 'MData.cc' || echo '$(srcdir)/'`MData.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/zack-MData.Tpo $(DEPDIR)/zack-MData.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='MData.cc' object='zack-MData.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(zack_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o zack-MData.o `test -f 'MData.cc' || echo '$(srcdir)/'`MData.cc
+
+zack-MData.obj: MData.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(zack_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT zack-MData.obj -MD -MP -MF $(DEPDIR)/zack-MData.Tpo -c -o zack-MData.obj `if test -f 'MData.cc'; then $(CYGPATH_W) 'MData.cc'; else $(CYGPATH_W) '$(srcdir)/MData.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/zack-MData.Tpo $(DEPDIR)/zack-MData.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='MData.cc' object='zack-MData.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(zack_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o zack-MData.obj `if test -f 'MData.cc'; then $(CYGPATH_W) 'MData.cc'; else $(CYGPATH_W) '$(srcdir)/MData.cc'; fi`
+
+zack-ZackServer.o: ZackServer.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(zack_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT zack-ZackServer.o -MD -MP -MF $(DEPDIR)/zack-ZackServer.Tpo -c -o zack-ZackServer.o `test -f 'ZackServer.cc' || echo '$(srcdir)/'`ZackServer.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/zack-ZackServer.Tpo $(DEPDIR)/zack-ZackServer.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='ZackServer.cc' object='zack-ZackServer.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(zack_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o zack-ZackServer.o `test -f 'ZackServer.cc' || echo '$(srcdir)/'`ZackServer.cc
+
+zack-ZackServer.obj: ZackServer.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(zack_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT zack-ZackServer.obj -MD -MP -MF $(DEPDIR)/zack-ZackServer.Tpo -c -o zack-ZackServer.obj `if test -f 'ZackServer.cc'; then $(CYGPATH_W) 'ZackServer.cc'; else $(CYGPATH_W) '$(srcdir)/ZackServer.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/zack-ZackServer.Tpo $(DEPDIR)/zack-ZackServer.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='ZackServer.cc' object='zack-ZackServer.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(zack_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o zack-ZackServer.obj `if test -f 'ZackServer.cc'; then $(CYGPATH_W) 'ZackServer.cc'; else $(CYGPATH_W) '$(srcdir)/ZackServer.cc'; fi`
 
 zack-Main.o: Main.cc
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(zack_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT zack-Main.o -MD -MP -MF $(DEPDIR)/zack-Main.Tpo -c -o zack-Main.o `test -f 'Main.cc' || echo '$(srcdir)/'`Main.cc
