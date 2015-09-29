@@ -7,8 +7,6 @@
 #include <sys/ioctl.h>
 #include <netinet/in.h>
 
-#include "boost/tokenizer.hpp"
-
 namespace zack
 {
 
@@ -19,14 +17,8 @@ ZackServer::ZackServer(int argc, char* argv[]):
 
   config_.reset( new ZackConfig(argc, argv) );
 
-  boost::tokenizer<> tok( config_->zackOptions()->instrus_filter );
-  for( boost::tokenizer<>::iterator beg=tok.begin(); beg!=tok.end(); ++beg )
-  {
-    ZACK_DEBUG <<"instrus filter: " <<*beg;
-    instrus_filter_.insert(*beg);
-  }
-
-  md_file_.reset( new MData(config_->zackOptions()->md_file) );
+  md_file_.reset( new air::MData(config_->zackOptions()->md_file,
+                                 config_->zackOptions()->instrus_filter) );
 
   go();
 
@@ -65,20 +57,12 @@ void ZackServer::go()
       throw std::runtime_error("recv error.");
     }
 
-    boost::posix_time::ptime time_stamp = boost::posix_time::microsec_clock::local_time();
-    
-
     std::auto_ptr<Parser> parser( new Parser(buf, len) );
 
-    if( instrus_filter_.count( parser->instru() )>0 )
-    {
-      parser->output();
+    md_file_->pushMData( parser->instru(),
+                         parser->updateTime(),
+                         parser->updateMillisec() );
 
-      md_file_->outMData( parser->updateTime(), parser->updateMillisec(),
-                          time_stamp);
-      
-    }
-    
   }while(true);
   
 }

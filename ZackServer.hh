@@ -4,7 +4,7 @@
 #include <memory>
 
 #include "ZackConfig.hh"
-#include "MData.hh"
+#include "air/MData.hh"
 
 namespace zack
 {
@@ -32,7 +32,7 @@ class ZackServer
 
   std::set<std::string> instrus_filter_;
 
-  std::auto_ptr<MData> md_file_;
+  std::auto_ptr<air::MData> md_file_;
 };
 
 };

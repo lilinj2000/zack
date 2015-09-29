@@ -636,12 +636,15 @@ ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
 LIBOBJS
-BOOST_LIBADD
-BOOST_CPPFLAGS
-BOOST_HOME
+AIR_LIBADD
+AIR_CPPFLAGS
+AIR_HOME
 SOIL_LIBADD
 SOIL_CPPFLAGS
 SOIL_HOME
+BOOST_LIBADD
+BOOST_CPPFLAGS
+BOOST_HOME
 LT_AGE
 LT_REVISION
 LT_CURRENT
@@ -777,8 +780,9 @@ enable_fast_install
 with_gnu_ld
 with_sysroot
 enable_libtool_lock
-with_soil
 with_boost
+with_soil
+with_air
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1431,8 +1435,9 @@ Optional Packages:
   --with-gnu-ld           assume the C compiler uses GNU ld [default=no]
   --with-sysroot=DIR Search for dependent libraries within DIR
                         (or the compiler's sysroot if not specified).
-  --with-soil             home path of the soil, defaults to $home_es/soil
   --with-boost            home path of the boost, defaults to $home_3rd/boost
+  --with-soil             home path of the soil, defaults to $home_es/soil
+  --with-air              home path of the air, defaults to $home_es/air
 
 Some influential environment variables:
   CXX         C++ compiler command
@@ -15096,21 +15101,6 @@ home_3rd=`pwd`/../../3rd
 home_es=`pwd`/../../es
 
 
-# Check whether --with-soil was given.
-if test "${with_soil+set}" = set; then :
-  withval=$with_soil; SOIL_HOME="$withval"
-else
-  SOIL_HOME="$home_es/soil"
-fi
-
-
-
-SOIL_CPPFLAGS="-I$SOIL_HOME/include"
-SOIL_LIBADD="$SOIL_HOME/lib/libsoil.la"
-
-
-
-
 # Check whether --with-boost was given.
 if test "${with_boost+set}" = set; then :
   withval=$with_boost; BOOST_HOME="$withval"
@@ -15130,6 +15120,38 @@ BOOST_LIBADD="$BOOST_HOME/lib/libboost_log_setup.so \
 	      $BOOST_HOME/lib/libboost_chrono.so \
 	      $BOOST_HOME/lib/libboost_date_time.so \
 	      $BOOST_HOME/lib/libboost_system.so"
+
+
+
+
+# Check whether --with-soil was given.
+if test "${with_soil+set}" = set; then :
+  withval=$with_soil; SOIL_HOME="$withval"
+else
+  SOIL_HOME="$home_es/soil"
+fi
+
+
+
+SOIL_CPPFLAGS="-I$SOIL_HOME/include"
+SOIL_LIBADD="$SOIL_HOME/lib/libsoil.la"
+
+
+
+
+# Check whether --with-air was given.
+if test "${with_air+set}" = set; then :
+  withval=$with_air; AIR_HOME="$withval"
+else
+  AIR_HOME="$home_es/air"
+fi
+
+
+
+AIR_CPPFLAGS="-I$AIR_HOME/include"
+AIR_LIBADD="$AIR_HOME/lib/libair.la"
+
+
 
 
 

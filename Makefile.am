@@ -4,18 +4,19 @@ bin_PROGRAMS = zack
 zack_SOURCES = \
 	ZackConfig.cc \
 	Parser.cc \
-	MData.cc \
 	ZackServer.cc \
 	Main.cc
 
 zack_CPPFLAGS =  \
 		$(BOOST_CPPFLAGS) \
-		$(SOIL_CPPFLAGS)
+		$(SOIL_CPPFLAGS) \
+		$(AIR_CPPFLAGS)
 
 
 zack_LDADD = \
 	$(BOOST_LIBADD) \
-	$(SOIL_LIBADD)
+	$(SOIL_LIBADD) \
+	$(AIR_LIBADD)
 
 
 zack_LDFLAGS = $(LIBADD_DL) -Wl,--no-as-needed -pthread
@@ -25,8 +26,8 @@ noinst_HEADERS = ZackConfig.hh \
 	FtdcDef.hh \
 	Parser.hh \
 	ZackServer.hh \
-	ZackLog.hh \
-	MData.hh
+	ZackLog.hh
+
 
 EXTRA_DIST = env.sh.example zack.cfg.example log.cfg.example
 
