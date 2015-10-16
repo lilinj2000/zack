@@ -4,7 +4,7 @@
 #include <memory>
 
 #include "ZackConfig.hh"
-#include "air/MData.hh"
+#include "air/MDataFile.hh"
 
 namespace zack
 {
@@ -23,6 +23,11 @@ class ZackServer
   void setSocket();
   
   void outputError();
+
+  air::SpeedMData* toSpeedMData(const std::string& instru,
+                                const std::string& update_time,
+                                int update_millisec);
+
   
  private:
 
@@ -32,7 +37,7 @@ class ZackServer
 
   std::set<std::string> instrus_filter_;
 
-  std::auto_ptr<air::MData> md_file_;
+  std::auto_ptr<air::MDataFile> md_file_;
 };
 
 };

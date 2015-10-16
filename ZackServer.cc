@@ -17,7 +17,7 @@ ZackServer::ZackServer(int argc, char* argv[]):
 
   config_.reset( new ZackConfig(argc, argv) );
 
-  md_file_.reset( new air::MData(config_->zackOptions()->md_file,
+  md_file_.reset( new air::MDataFile(config_->zackOptions()->md_file,
                                  config_->zackOptions()->instrus_filter) );
 
   go();
@@ -59,13 +59,15 @@ void ZackServer::go()
 
     std::auto_ptr<Parser> parser( new Parser(buf, len) );
 
-    md_file_->pushMData( parser->instru(),
-                         parser->updateTime(),
-                         parser->updateMillisec() );
+    md_file_->putData( toSpeedMData(parser->instru(),
+                                    parser->updateTime(),
+                                    parser->updateMillisec()) );
 
   }while(true);
   
 }
+
+
 
 void ZackServer::setSocket()
 {
@@ -130,5 +132,21 @@ void ZackServer::outputError()
   
   ZACK_ERROR <<strerror( error );
 }
+
+air::SpeedMData* ZackServer::toSpeedMData(const std::string& instru,
+                                          const std::string& update_time,
+                                          int update_millisec)
+{
+  std::auto_ptr<air::SpeedMData> speed_data(new air::SpeedMData());
+  
+  speed_data->instru = instru;
+  speed_data->update_time = update_time;
+  speed_data->update_millisec = update_millisec;
+  speed_data->time_stamp = boost::posix_time::microsec_clock::local_time();
+
+  return speed_data.release();
+
+}
+
 
 };

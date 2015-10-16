@@ -32,8 +32,16 @@ AC_SUBST(LT_CURRENT)
 AC_SUBST(LT_REVISION)
 AC_SUBST(LT_AGE)
 
-home_3rd=`pwd`/../../3rd
-home_es=`pwd`/../../es
+home_3rd=~/3rd
+home_es=~/es
+
+if test -d /app/3rd ; then
+   home_3rd=/app/3rd
+fi
+
+if test -d /app/es ; then
+   home_es=/app/es
+fi
 
 dnl boost lib
 AC_ARG_WITH([boost],
