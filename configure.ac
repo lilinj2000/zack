@@ -33,14 +33,14 @@ AC_SUBST(LT_REVISION)
 AC_SUBST(LT_AGE)
 
 home_3rd=~/3rd
-home_es=~/es
+home_libs=~/libs
 
-if test -d /app/3rd ; then
-   home_3rd=/app/3rd
+if test -d /llj/3rd ; then
+   home_3rd=/llj/3rd
 fi
 
-if test -d /app/es ; then
-   home_es=/app/es
+if test -d /llj/libs ; then
+   home_libs=/llj/libs
 fi
 
 dnl boost lib
@@ -67,9 +67,9 @@ AC_SUBST(BOOST_LIBADD)
 dnl soil lib
 AC_ARG_WITH([soil],
     [AS_HELP_STRING([--with-soil],
-        [home path of the soil, defaults to $home_es/soil])],
+        [home path of the soil, defaults to $home_libs/soil])],
     [SOIL_HOME="$withval"],
-    [SOIL_HOME="$home_es/soil"])
+    [SOIL_HOME="$home_libs/soil"])
 AC_SUBST([SOIL_HOME])
 
 SOIL_CPPFLAGS="-I$SOIL_HOME/include"
@@ -80,9 +80,9 @@ AC_SUBST(SOIL_LIBADD)
 dnl air lib
 AC_ARG_WITH([air],
     [AS_HELP_STRING([--with-air],
-        [home path of the air, defaults to $home_es/air])],
+        [home path of the air, defaults to $home_libs/air])],
     [AIR_HOME="$withval"],
-    [AIR_HOME="$home_es/air"])
+    [AIR_HOME="$home_libs/air"])
 AC_SUBST([AIR_HOME])
 
 AIR_CPPFLAGS="-I$AIR_HOME/include"

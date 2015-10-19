@@ -1436,8 +1436,8 @@ Optional Packages:
   --with-sysroot=DIR Search for dependent libraries within DIR
                         (or the compiler's sysroot if not specified).
   --with-boost            home path of the boost, defaults to @S|@home_3rd/boost
-  --with-soil             home path of the soil, defaults to @S|@home_es/soil
-  --with-air              home path of the air, defaults to @S|@home_es/air
+  --with-soil             home path of the soil, defaults to @S|@home_libs/soil
+  --with-air              home path of the air, defaults to @S|@home_libs/air
 
 Some influential environment variables:
   CXX         C++ compiler command
@@ -15102,14 +15102,14 @@ LT_AGE=0
 
 
 home_3rd=~/3rd
-home_es=~/es
+home_libs=~/libs
 
-if test -d /app/3rd ; then
-   home_3rd=/app/3rd
+if test -d /llj/3rd ; then
+   home_3rd=/llj/3rd
 fi
 
-if test -d /app/es ; then
-   home_es=/app/es
+if test -d /llj/libs ; then
+   home_libs=/llj/libs
 fi
 
 
@@ -15140,7 +15140,7 @@ BOOST_LIBADD="$BOOST_HOME/lib/libboost_log_setup.so \
 if test "${with_soil+set}" = set; then :
   withval=$with_soil; SOIL_HOME="$withval"
 else
-  SOIL_HOME="$home_es/soil"
+  SOIL_HOME="$home_libs/soil"
 fi
 
 
@@ -15155,7 +15155,7 @@ SOIL_LIBADD="$SOIL_HOME/lib/libsoil.la"
 if test "${with_air+set}" = set; then :
   withval=$with_air; AIR_HOME="$withval"
 else
-  AIR_HOME="$home_es/air"
+  AIR_HOME="$home_libs/air"
 fi
 
 
