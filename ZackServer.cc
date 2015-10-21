@@ -142,7 +142,6 @@ air::SpeedMData* ZackServer::toSpeedMData(const std::string& instru,
   speed_data->instru = instru;
   speed_data->update_time = update_time;
   speed_data->update_millisec = update_millisec;
-  speed_data->time_stamp = boost::posix_time::microsec_clock::local_time();
 
   return speed_data.release();
 
