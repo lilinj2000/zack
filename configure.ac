@@ -8,7 +8,7 @@ AC_CONFIG_SRCDIR([])
 
 AM_INIT_AUTOMAKE
 
-#AC_CONFIG_MACRO_DIR([m4])
+AC_CONFIG_MACRO_DIR([m4])
 
 # Checks for programs.
 AC_PROG_CXX
@@ -21,6 +21,8 @@ AC_PROG_RANLIB
 
 # Checks for typedefs, structures, and compiler characteristics.
 #AC_CHECK_HEADER_STDBOOL
+
+AX_CXX_COMPILE_STDCXX_11([noext],[mandatory])
 
 # Checks for library functions.
 LT_RELEASE=0.1
