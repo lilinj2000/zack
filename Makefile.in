@@ -378,9 +378,11 @@ noinst_HEADERS = ZackConfig.hh \
 	ZackServer.hh \
 	ZackLog.hh
 
-EXTRA_DIST = env.sh.example zack.cfg.example log.cfg.example deploy.sh
+installed_data = env.sh.example zack.cfg.example log.cfg.example
+noinst_data = deploy.sh
+EXTRA_DIST = $(installed_data) $(noinst_data)
 zackdir = $(bindir)
-zack_DATA = $(EXTRA_DIST)
+zack_DATA = $(installed_data)
 all: all-am
 
 .SUFFIXES:
