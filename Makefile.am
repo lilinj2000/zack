@@ -29,7 +29,7 @@ noinst_HEADERS = ZackConfig.hh \
 	ZackLog.hh
 
 
-EXTRA_DIST = env.sh.example zack.cfg.example log.cfg.example
+EXTRA_DIST = env.sh.example zack.cfg.example log.cfg.example deploy.sh
 
 zackdir = $(bindir)
 zack_DATA = $(EXTRA_DIST)
