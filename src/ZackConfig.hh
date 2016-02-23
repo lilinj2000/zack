@@ -24,7 +24,7 @@ class ZackOptions : public soil::Options
   
   std::string instrus_filter;
 
-  std::string md_file;
+  std::string speed_file;
   
   std::string log_cfg;
 

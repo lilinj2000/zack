@@ -17,7 +17,7 @@ ZackServer::ZackServer(int argc, char* argv[]):
 
   config_.reset( new ZackConfig(argc, argv) );
 
-  md_file_.reset( new air::MDataFile(config_->zackOptions()->md_file,
+  speed_file_.reset( new air::MDataFile(config_->zackOptions()->speed_file,
                                  config_->zackOptions()->instrus_filter) );
 
   go();
@@ -59,7 +59,7 @@ void ZackServer::go()
 
     std::auto_ptr<Parser> parser( new Parser(buf, len) );
 
-    md_file_->putData( toSpeedMData(parser->instru(),
+    speed_file_->putData( toSpeedMData(parser->instru(),
                                     parser->updateTime(),
                                     parser->updateMillisec()) );
 

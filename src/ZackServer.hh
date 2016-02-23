@@ -31,13 +31,11 @@ class ZackServer
   
  private:
 
-  std::auto_ptr<ZackConfig> config_;
+  std::unique_ptr<ZackConfig> config_;
 
   int sock_fd_;
 
-  std::set<std::string> instrus_filter_;
-
-  std::auto_ptr<air::MDataFile> md_file_;
+  std::unique_ptr<air::MDataFile> speed_file_;
 };
 
 };

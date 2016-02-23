@@ -9,7 +9,7 @@ namespace zack
 {
 
 ZackOptions::ZackOptions():
-    config_options_("FlashTCPConfigOptions")
+    config_options_("ZackConfigOptions")
 {
 
   namespace po = boost::program_options;
@@ -19,8 +19,8 @@ ZackOptions::ZackOptions():
        "udp port")
       ("zack.instrus_filter", po::value<std::string>(&instrus_filter), 
        "instrument")
-      ("zack.md_file", po::value<std::string>(&md_file), 
-       "md file")
+      ("zack.speed_file", po::value<std::string>(&speed_file), 
+       "speed file")
 
       ("zack.log_cfg", po::value<std::string>(&log_cfg), 
        "log config file")
