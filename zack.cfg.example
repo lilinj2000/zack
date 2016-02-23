@@ -1,8 +1,0 @@
-
-[zack]
-udp_port = 28333
-instrus_filter = IF1510
-md_file = zeusing_udp_md.data
-log_cfg = ./log.cfg
-
-

@@ -95,6 +95,7 @@ AC_SUBST(AIR_LIBADD)
 
 
 AC_OUTPUT([
-	Makefile])
+	Makefile
+	src/Makefile])
 
 
