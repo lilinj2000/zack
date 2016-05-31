@@ -1,3 +1,6 @@
+// Copyright (c) 2010
+// All rights reserved.
+
 #ifndef ZACK_LOG_HH
 #define ZACK_LOG_HH
 
@@ -13,7 +16,6 @@
 #define ZACK_FATAL SOIL_FATAL
 #define ZACK_PDU SOIL_PDU
 #define ZACK_CUSTOM SOIL_CUSTOM
-
 
 #endif
 

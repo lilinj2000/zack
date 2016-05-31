@@ -1,36 +1,35 @@
+// Copyright (c) 2010
+// All rights reserved.
+
 #ifndef ZACK_SERVER_HH
 #define ZACK_SERVER_HH
 
 #include <memory>
+#include <string>
 
 #include "ZackConfig.hh"
 #include "air/MDataFile.hh"
 
-namespace zack
-{
+namespace zack {
 
-class ZackServer
-{
+class ZackServer {
  public:
   ZackServer(int argc, char *argv[]);
 
   ~ZackServer();
 
  protected:
-
   void go();
 
   void setSocket();
-  
+
   void outputError();
 
   air::SpeedMData* toSpeedMData(const std::string& instru,
                                 const std::string& update_time,
                                 int update_millisec);
 
-  
  private:
-
   std::unique_ptr<ZackConfig> config_;
 
   int sock_fd_;
@@ -38,6 +37,6 @@ class ZackServer
   std::unique_ptr<air::MDataFile> speed_file_;
 };
 
-};
+};  // namespace zack
 
 #endif

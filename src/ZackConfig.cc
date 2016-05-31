@@ -1,62 +1,53 @@
+// Copyright (c) 2010
+// All rights reserved.
+
+#include <boost/program_options.hpp>
+#include <fstream>
+#include <iostream>
+
 #include "ZackConfig.hh"
 #include "ZackLog.hh"
 
-#include <fstream>
-#include <iostream>
-#include <boost/program_options.hpp>
-
-namespace zack
-{
+namespace zack {
 
 ZackOptions::ZackOptions():
-    config_options_("ZackConfigOptions")
-{
-
+    config_options_("ZackConfigOptions") {
   namespace po = boost::program_options;
 
   config_options_.add_options()
-      ("zack.udp_port", po::value<int>(&udp_port), 
+      ("zack.udp_port", po::value<int>(&udp_port),
        "udp port")
-      ("zack.instrus_filter", po::value<std::string>(&instrus_filter), 
+      ("zack.instrus_filter", po::value<std::string>(&instrus_filter),
        "instrument")
-      ("zack.speed_file", po::value<std::string>(&speed_file), 
+      ("zack.speed_file", po::value<std::string>(&speed_file),
        "speed file")
-
-      ("zack.log_cfg", po::value<std::string>(&log_cfg), 
-       "log config file")
-      ;
-
+      ("zack.log_cfg", po::value<std::string>(&log_cfg),
+         "log config file");
   return;
-  
 }
 
-ZackOptions::~ZackOptions()
-{
+ZackOptions::~ZackOptions() {
 }
 
-po::options_description* ZackOptions::configOptions()
-{
+po::options_description* ZackOptions::configOptions() {
   return &config_options_;
 }
 
-ZackConfig::ZackConfig(int argc, char* argv[])
-{
+ZackConfig::ZackConfig(int argc, char* argv[]) {
   zack_options_.reset(new ZackOptions());
-      
-  std::auto_ptr<soil::Config> config( soil::Config::create() );
-  config->registerOptions( zack_options_.get() );
+  std::auto_ptr<soil::Config> config(soil::Config::create());
+  config->registerOptions(zack_options_.get());
 
   config->configFile() = "zack.cfg";
   config->loadConfig(argc, argv);
-  
+
   // init the log
-  ZACK_LOG_INIT( zack_options_->log_cfg );
-  
+  ZACK_LOG_INIT(zack_options_->log_cfg);
+
   return;
 }
 
-ZackConfig::~ZackConfig()
-{
+ZackConfig::~ZackConfig() {
 }
 
-};  
+};  // namespace zack
