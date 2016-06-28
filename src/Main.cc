@@ -6,7 +6,7 @@
 #include "ZackServer.hh"
 
 int main(int argc, char* argv[]) {
-  std::auto_ptr<zack::ZackServer> server;
+  std::unique_ptr<zack::ZackServer> server;
 
   server.reset( new zack::ZackServer(argc, argv) );
 
