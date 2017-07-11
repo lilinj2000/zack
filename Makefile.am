@@ -4,3 +4,5 @@ SUBDIRS = src
 
 EXTRA_DIST = deploy.sh
 
+ACLOCAL_AMFLAGS = -I m4
+
